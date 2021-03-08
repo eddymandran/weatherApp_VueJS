@@ -10,14 +10,14 @@
         />
       </div>
 
-      <div class="weather-wrap">
+      <div class="weather-wrap" v-if="typeof weather.main !='undefined'">
         <div class="location-box">
-          <div class="location">{{weather.name}} </div>
-          <div class="date">Monday 8 March 2021</div>
+          <div class="location">{{weather.name}}, {{weather.sys.country}}</div>
+          <div class="date">{{dateBuilder()}}</div>
         </div>
         <div class="weather-box">
-          <div class="temp">9°c</div>
-          <div class="weather">Rain</div>
+          <div class="temp">{{ Math.round(weather.main.temp)}}°c</div>
+          <div class="weather">{{ weather.weather[0].description }}</div>
         </div>
       </div>
     </main>
@@ -42,8 +42,20 @@ export default {
       .then(this.setResults);
     },
     setResults(results){
-      console.log(results);
       this.weather=results;
+    },
+    dateBuilder(){
+      let d = new Date();
+      console.log(`${d}`)
+      let months = ["Janvier","Fevrier","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Decembre"];
+      let days= ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
+
+      let day = days[d.getDay()];
+      let date = d.getDate();
+      let month = months[d.getMonth()];
+      let year = d.getFullYear();
+
+      return ` ${day} ${date} ${month} ${year} `;
     }
   },
 };
