@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="typeof weather.main != 'undefined' && weather.main.temp >16 ? 'warm': ''">
     <main>
       <div class="search-box">
         <input type="text" 
@@ -46,7 +46,6 @@ export default {
     },
     dateBuilder(){
       let d = new Date();
-      console.log(`${d}`)
       let months = ["Janvier","Fevrier","Mars","Avril","Mai","Juin","Juillet","Aout","Septembre","Octobre","Novembre","Decembre"];
       let days= ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
 
@@ -62,6 +61,7 @@ export default {
 </script>
 
 <style>
+
 * {
   margin: 0;
   padding: 0;
@@ -78,6 +78,10 @@ body {
   background-size: cover;
   background-position: bottom;
   transition: 0.4s;
+}
+
+#app.warm{
+  background-image: url('./assets/warm-bg.jpg');
 }
 
 main {
